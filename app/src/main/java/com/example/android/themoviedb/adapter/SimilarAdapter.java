@@ -3,7 +3,6 @@ package com.example.android.themoviedb.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,39 +16,36 @@ import com.example.android.themoviedb.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by AriqD on 11/05/2017.
+ * Created by AriqD on 21/05/2017.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ViewHolder> {
 
     private Context context;
-    private List<MovieModel> movieList;
+    private List<MovieModel> similarList;
 
-    public MovieAdapter(Context context, List<MovieModel> movieList) {
+    public SimilarAdapter(Context context, List<MovieModel> similarList) {
         this.context = context;
-        this.movieList = movieList;
+        this.similarList = similarList;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movies_row, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+    public SimilarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movies_simple, parent, false);
+        SimilarAdapter.ViewHolder viewHolder = new SimilarAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final MovieModel movie = movieList.get(position);
+    public void onBindViewHolder(SimilarAdapter.ViewHolder holder, int position) {
+        final MovieModel movie = similarList.get(position);
 
-        holder.tvTitle.setText(movie.getTitle());
-        holder.tvVote.setText(Double.toString(movie.getVoteAverage()));
+        holder.tvName.setText(movie.getTitle());
         Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivPoster);
-        holder.tvVoteCount.setText(Integer.toString(movie.getVoteCount()));
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -60,48 +56,34 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             genres.append(", ");
             genres.append(it.next());
         }
-        holder.tvGenre.setText(genres);
 
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MovieDetails.class);
                 intent.putExtra("id", movie.getId());
-//                intent.putExtra("backdrop", movie.getBackdropPath());
-//                intent.putExtra("poster", movie.getPosterPath());
-//                intent.putExtra("title", movie.getTitle());
-//                intent.putExtra("release_date", movie.getReleaseDate());
-//                intent.putExtra("overview", movie.getOverview());
                 intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return similarList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTitle;
-        TextView tvGenre;
-        TextView tvVote;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView ivPoster;
-        TextView tvVoteCount;
-//        List<MovieModel> movies = new ArrayList<MovieModel>();
-//        Context context;
+        TextView tvName;
         MovieClickListener movieClickListener;
 
-        //, Context context, List<MovieModel> movies -> params for ViewHolder()
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvGenre = (TextView) itemView.findViewById(R.id.tv_genre);
-            tvVote = (TextView) itemView.findViewById(R.id.tv_vote);
-            ivPoster = (ImageView) itemView.findViewById(R.id.iv_poster);
-            tvVoteCount = (TextView) itemView.findViewById(R.id.tv_vote_count);
+            ivPoster = (ImageView) itemView.findViewById(R.id.iv_simple_poster);
+            tvName = (TextView) itemView.findViewById(R.id.tv_simple_title);
 
             itemView.setOnClickListener(this);
         }

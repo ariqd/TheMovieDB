@@ -22,7 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MovieDetails" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".PeopleActivity"
+            android:label="@string/title_activity_people"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,65 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context="com.example.android.themoviedb.Tab1NowPlaying"
     android:background="@color/colorPrimaryDark">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
-        <TextView
-            android:id="@+id/tv_nowplaying"
+        <LinearLayout
+            android:id="@+id/la_nowplaying"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp"
-            android:paddingBottom="10dp"
-            android:text="Now Playing"
-            android:textSize="30sp"
-            android:textColor="#fefefe"/>
+            android:orientation="vertical">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tv_nowplaying"
-            android:scrollbars="none"
-            android:fillViewport="true"
-            android:padding="0dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_nowplaying"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="10dp"
+                android:text="Now Playing"
+                android:textSize="26sp"
+                android:textColor="#fefefe"/>
 
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="?android:progressBarStyle"
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:padding="0dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        style="?android:progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="16dp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_movies_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/tv_nowplaying"
+                        android:layout_marginLeft="16dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/la_mostpopular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/la_nowplaying">
+
+            <TextView
+                android:id="@+id/tv_mostpopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="10dp"
+                android:text="Most Popular"
+                android:textSize="26sp"
+                android:textColor="#fefefe" />
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:clickable="true"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_above="@+id/horizontalScrollView">-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/button"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="See All"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_alignBaseline="@+id/tv_mostpopular"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:background="?attr/selectableItemBackground"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_mostpopular"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:padding="0dp"
+                android:id="@+id/horizontalScrollView">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="16dp"/>
+                    android:orientation="horizontal">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_movies_data"
-                    android:layout_width="match_parent"
+                    <ProgressBar
+                        android:id="@+id/progress_bar_2"
+                        style="?android:progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="16dp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_movies_popular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/tv_mostpopular"
+                        android:layout_marginLeft="16dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/la_comingsoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/la_mostpopular">
+
+            <TextView
+                android:id="@+id/tv_comingsoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="10dp"
+                android:text="Coming Soon"
+                android:textSize="26sp"
+                android:textColor="#fefefe"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:padding="0dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/tv_nowplaying"
-                    android:layout_marginLeft="16dp">
+                    android:orientation="horizontal">
 
-                </android.support.v7.widget.RecyclerView>
+                    <ProgressBar
+                        android:id="@+id/progress_bar_3"
+                        style="?android:progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="16dp"/>
 
-            </RelativeLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_coming_soon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/tv_nowplaying"
+                        android:layout_marginLeft="16dp"
+                        android:paddingBottom="16dp">
 
-        </HorizontalScrollView>
+                    </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+                </RelativeLayout>
 
-</RelativeLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

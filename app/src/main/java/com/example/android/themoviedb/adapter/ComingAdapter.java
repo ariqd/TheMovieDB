@@ -3,7 +3,6 @@ package com.example.android.themoviedb.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,28 +16,31 @@ import com.example.android.themoviedb.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by AriqD on 11/05/2017.
+ * Created by AriqD on 19/05/2017.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class ComingAdapter extends RecyclerView.Adapter<ComingAdapter.ViewHolder> {
 
     private Context context;
     private List<MovieModel> movieList;
 
-    public MovieAdapter(Context context, List<MovieModel> movieList) {
+    public ComingAdapter(Context context, List<MovieModel> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movies_row, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_coming_soon, parent, false);
+        ComingAdapter.ViewHolder viewHolder = new ComingAdapter.ViewHolder(view);
         return viewHolder;
     }
 
@@ -46,10 +48,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         final MovieModel movie = movieList.get(position);
 
-        holder.tvTitle.setText(movie.getTitle());
-        holder.tvVote.setText(Double.toString(movie.getVoteAverage()));
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivPoster);
-        holder.tvVoteCount.setText(Integer.toString(movie.getVoteCount()));
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy");
+        String inputDateStr = movie.getReleaseDate();
+        Date date = null;
+        try {
+            date = inputFormat.parse(inputDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String mdy = outputFormat.format(date);
+        holder.tvReleaseDate.setText(mdy);
+
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivComingPoster);
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -60,18 +71,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             genres.append(", ");
             genres.append(it.next());
         }
-        holder.tvGenre.setText(genres);
 
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MovieDetails.class);
                 intent.putExtra("id", movie.getId());
-//                intent.putExtra("backdrop", movie.getBackdropPath());
-//                intent.putExtra("poster", movie.getPosterPath());
-//                intent.putExtra("title", movie.getTitle());
-//                intent.putExtra("release_date", movie.getReleaseDate());
-//                intent.putExtra("overview", movie.getOverview());
                 intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);
             }
@@ -84,24 +89,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTitle;
-        TextView tvGenre;
-        TextView tvVote;
-        ImageView ivPoster;
-        TextView tvVoteCount;
-//        List<MovieModel> movies = new ArrayList<MovieModel>();
-//        Context context;
+        TextView tvReleaseDate;
+        ImageView ivComingPoster;
         MovieClickListener movieClickListener;
 
-        //, Context context, List<MovieModel> movies -> params for ViewHolder()
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvGenre = (TextView) itemView.findViewById(R.id.tv_genre);
-            tvVote = (TextView) itemView.findViewById(R.id.tv_vote);
-            ivPoster = (ImageView) itemView.findViewById(R.id.iv_poster);
-            tvVoteCount = (TextView) itemView.findViewById(R.id.tv_vote_count);
+            tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_coming_date);
+            ivComingPoster = (ImageView) itemView.findViewById(R.id.iv_coming_poster);
 
             itemView.setOnClickListener(this);
         }
