@@ -21,12 +21,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MovieDetails" />
-        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".PeopleActivity"
             android:label="@string/title_activity_people"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".MovieActivity"
+            android:label="@string/title_activity_movie"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TabTvShows" />
+        <activity
+            android:name=".TvActivity"
+            android:label="@string/title_activity_tv"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EpisodesActivity"
+            android:label="@string/title_activity_episodes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

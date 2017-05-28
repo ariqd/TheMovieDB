@@ -3,21 +3,18 @@ package com.example.android.themoviedb.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviedb.MovieDetails;
+import com.example.android.themoviedb.MovieActivity;
 import com.example.android.themoviedb.R;
 import com.example.android.themoviedb.listener.MovieClickListener;
 import com.example.android.themoviedb.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,8 +45,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
         holder.tvTitle.setText(movie.getTitle());
         holder.tvVote.setText(Double.toString(movie.getVoteAverage()));
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivPoster);
-        holder.tvVoteCount.setText(Integer.toString(movie.getVoteCount()));
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w342" + movie.getPosterPath()).into(holder.ivPoster);
+//        holder.tvVoteCount.setText(Integer.toString(movie.getVoteCount()));
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -65,14 +62,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MovieDetails.class);
+                Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("id", movie.getId());
-//                intent.putExtra("backdrop", movie.getBackdropPath());
-//                intent.putExtra("poster", movie.getPosterPath());
-//                intent.putExtra("title", movie.getTitle());
-//                intent.putExtra("release_date", movie.getReleaseDate());
-//                intent.putExtra("overview", movie.getOverview());
-                intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);
             }
         });
@@ -88,7 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         TextView tvGenre;
         TextView tvVote;
         ImageView ivPoster;
-        TextView tvVoteCount;
+//        TextView tvVoteCount;
 //        List<MovieModel> movies = new ArrayList<MovieModel>();
 //        Context context;
         MovieClickListener movieClickListener;
@@ -101,7 +92,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvGenre = (TextView) itemView.findViewById(R.id.tv_genre);
             tvVote = (TextView) itemView.findViewById(R.id.tv_vote);
             ivPoster = (ImageView) itemView.findViewById(R.id.iv_poster);
-            tvVoteCount = (TextView) itemView.findViewById(R.id.tv_vote_count);
+//            tvVoteCount = (TextView) itemView.findViewById(R.id.tv_vote_count);
 
             itemView.setOnClickListener(this);
         }

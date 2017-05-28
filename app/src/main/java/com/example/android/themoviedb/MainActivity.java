@@ -1,15 +1,13 @@
 package com.example.android.themoviedb;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -17,13 +15,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -62,16 +56,34 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        strLocation = sharedPreferences.getString("pref_location", "Bandung");
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                Log.e("queryText",query);
+                Intent intent = new Intent(context, SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                Log.e("queryText",newText);
+                return false;
+            }
+        });
         return true;
     }
 
@@ -116,7 +128,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     Tab1NowPlaying tab1 = new Tab1NowPlaying();
                     return tab1;
                 case 1:
-                    Tab2Movies tab2 = new Tab2Movies();
+                    TabTvShows tabTv = new TabTvShows();
+                    return tabTv;
+                case 2:
+                    Tab2People tab2 = new Tab2People();
                     return tab2;
                 default:
                     return null;
@@ -126,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -136,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     return "MOVIES";
                 case 1:
                     return "TV SHOWS";
+                case 2:
+                    return "PEOPLE";
             }
             return null;
         }

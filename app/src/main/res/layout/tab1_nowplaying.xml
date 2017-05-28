@@ -26,10 +26,10 @@
                 android:paddingTop="16dp"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:text="Now Playing"
-                android:textSize="26sp"
-                android:textColor="#fefefe"/>
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -56,7 +56,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/tv_nowplaying"
                         android:layout_marginLeft="16dp">
 
                     </android.support.v7.widget.RecyclerView>
@@ -81,10 +80,10 @@
                 android:paddingTop="16dp"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:text="Most Popular"
-                android:textSize="26sp"
-                android:textColor="#fefefe" />
+                android:textSize="24sp"
+                android:textColor="@android:color/white" />
 
             <!--<RelativeLayout-->
                 <!--android:layout_width="wrap_content"-->
@@ -133,7 +132,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/tv_mostpopular"
                         android:layout_marginLeft="16dp">
 
                     </android.support.v7.widget.RecyclerView>
@@ -158,10 +156,10 @@
                 android:paddingTop="16dp"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:text="Coming Soon"
-                android:textSize="26sp"
-                android:textColor="#fefefe"/>
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -188,7 +186,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/tv_nowplaying"
                         android:layout_marginLeft="16dp"
                         android:paddingBottom="16dp">
 

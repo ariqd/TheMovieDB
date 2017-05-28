@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviedb.MovieDetails;
+import com.example.android.themoviedb.MovieActivity;
 import com.example.android.themoviedb.R;
 import com.example.android.themoviedb.listener.MovieClickListener;
 import com.example.android.themoviedb.model.MovieModel;
@@ -60,7 +60,7 @@ public class ComingAdapter extends RecyclerView.Adapter<ComingAdapter.ViewHolder
         String mdy = outputFormat.format(date);
         holder.tvReleaseDate.setText(mdy);
 
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivComingPoster);
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w342" + movie.getPosterPath()).into(holder.ivComingPoster);
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -75,7 +75,7 @@ public class ComingAdapter extends RecyclerView.Adapter<ComingAdapter.ViewHolder
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MovieDetails.class);
+                Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("id", movie.getId());
                 intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviedb.MovieDetails;
+import com.example.android.themoviedb.MovieActivity;
 import com.example.android.themoviedb.R;
 import com.example.android.themoviedb.listener.MovieClickListener;
 import com.example.android.themoviedb.model.MovieModel;
@@ -36,7 +36,7 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ViewHold
     @Override
     public SimilarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_movies_simple, parent, false);
-        SimilarAdapter.ViewHolder viewHolder = new SimilarAdapter.ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -45,7 +45,7 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ViewHold
         final MovieModel movie = similarList.get(position);
 
         holder.tvName.setText(movie.getTitle());
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivPoster);
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w342" + movie.getPosterPath()).into(holder.ivPoster);
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -60,7 +60,7 @@ public class SimilarAdapter extends RecyclerView.Adapter<SimilarAdapter.ViewHold
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MovieDetails.class);
+                Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("id", movie.getId());
                 intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);

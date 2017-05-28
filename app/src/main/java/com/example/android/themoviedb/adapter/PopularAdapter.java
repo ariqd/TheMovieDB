@@ -2,7 +2,6 @@ package com.example.android.themoviedb.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.themoviedb.MovieDetails;
+import com.example.android.themoviedb.MovieActivity;
 import com.example.android.themoviedb.R;
 import com.example.android.themoviedb.listener.MovieClickListener;
 import com.example.android.themoviedb.model.MovieModel;
@@ -47,7 +46,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
         int i = position + 1;
         holder.tvNumber.setText(Integer.toString(i));
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.ivPoster);
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w342" + movie.getPosterPath()).into(holder.ivPoster);
 
         final StringBuilder genres = new StringBuilder();
         Iterator<String> it = movie.getGenreList().iterator();
@@ -62,7 +61,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         holder.setMovieClickListener(new MovieClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MovieDetails.class);
+                Intent intent = new Intent(context, MovieActivity.class);
                 intent.putExtra("id", movie.getId());
                 intent.putExtra("genre", (Serializable) genres);
                 context.startActivity(intent);

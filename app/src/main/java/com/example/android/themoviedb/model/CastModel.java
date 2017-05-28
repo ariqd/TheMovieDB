@@ -1,5 +1,8 @@
 package com.example.android.themoviedb.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by AriqD on 18/05/2017.
  */
@@ -12,6 +15,49 @@ public class CastModel {
     private String character;
     private String profilePath;
     private int order;
+    private String date;
+
+    /*
+     * Cast Playing As
+     */
+    private String deathDate;
+    private String birthPlace;
+    private ArrayList<String> akaList = new ArrayList<>();
+
+    public String getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(String deathDate) {
+        this.deathDate = deathDate;
+    }
+
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
+    public ArrayList<String> getAkaList() {
+        return akaList;
+    }
+
+    public void setAkaList(ArrayList<String> akaList) {
+        this.akaList = akaList;
+    }
+
+    public CastModel() {
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;

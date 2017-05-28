@@ -1,6 +1,7 @@
 package com.example.android.themoviedb.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.themoviedb.PeopleActivity;
 import com.example.android.themoviedb.R;
-import com.example.android.themoviedb.listener.MovieClickListener;
+import com.example.android.themoviedb.listener.CastClickListener;
 import com.example.android.themoviedb.model.CastModel;
-import com.example.android.themoviedb.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +45,16 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         holder.tvName.setText(cast.getName());
         holder.tvCharacterName.setText(cast.getCharacter());
 
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + cast.getProfilePath()).into(holder.ivFace);
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w342" + cast.getProfilePath()).into(holder.ivFace);
+
+        holder.setCastClickListener(new CastClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PeopleActivity.class);
+                intent.putExtra("id", cast.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,11 +62,11 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         return castList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvName;
         TextView tvCharacterName;
         ImageView ivFace;
-//        MovieClickListener movieClickListener;
+        CastClickListener castClickListener;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +74,17 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvCharacterName = (TextView) itemView.findViewById(R.id.tv_character);
             ivFace = (ImageView) itemView.findViewById(R.id.iv_face);
+
+            itemView.setOnClickListener(this);
+        }
+
+        public void setCastClickListener(CastClickListener castClickListener) {
+            this.castClickListener = castClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            castClickListener.onClick(view);
         }
     }
 }

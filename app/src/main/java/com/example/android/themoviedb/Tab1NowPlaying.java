@@ -42,17 +42,9 @@ import static android.content.ContentValues.TAG;
 
 public class Tab1NowPlaying extends Fragment{
 
-    private RecyclerView rvMoviesData;
-    private RecyclerView rvMoviesPopular;
-    private RecyclerView rvComingSoon;
-
     private MovieAdapter movieAdapter;
     private PopularAdapter popularAdapter;
     private ComingAdapter comingAdapter;
-
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.LayoutManager layoutManager2;
-    private RecyclerView.LayoutManager layoutManager3;
 
     private List<GenreModel> genreList = new ArrayList<GenreModel>();
     private List<MovieModel> movieList = new ArrayList<MovieModel>();
@@ -72,26 +64,30 @@ public class Tab1NowPlaying extends Fragment{
         View rootView = inflater.inflate(R.layout.tab1_nowplaying, container, false);
         rootView.setTag(TAG);
 
-        rvMoviesData    = (RecyclerView) rootView.findViewById(R.id.rv_movies_data);
-        progressBar     = (ProgressBar) rootView.findViewById(R.id.progress_bar);
-        layoutManager   = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvMoviesData = (RecyclerView) rootView.findViewById(R.id.rv_movies_data);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMoviesData.setLayoutManager(layoutManager);
-        movieAdapter    = new MovieAdapter(getActivity(), movieList);
+        movieAdapter = new MovieAdapter(getActivity(), movieList);
         rvMoviesData.setAdapter(movieAdapter);
+        rvMoviesData.setNestedScrollingEnabled(false);
 
-        rvMoviesPopular = (RecyclerView) rootView.findViewById(R.id.rv_movies_popular);
-        progressBar2    = (ProgressBar) rootView.findViewById(R.id.progress_bar_2);
-        layoutManager2  = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView rvMoviesPopular = (RecyclerView) rootView.findViewById(R.id.rv_movies_popular);
+        progressBar2 = (ProgressBar) rootView.findViewById(R.id.progress_bar_2);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMoviesPopular.setLayoutManager(layoutManager2);
-        popularAdapter  = new PopularAdapter(getActivity(), popularList);
+        popularAdapter = new PopularAdapter(getActivity(), popularList);
         rvMoviesPopular.setAdapter(popularAdapter);
+        rvMoviesPopular.setNestedScrollingEnabled(false);
 
-        rvComingSoon    = (RecyclerView) rootView.findViewById(R.id.rv_coming_soon);
-        progressBar3    = (ProgressBar) rootView.findViewById(R.id.progress_bar_3);
-        layoutManager3  = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+
+        RecyclerView rvComingSoon = (RecyclerView) rootView.findViewById(R.id.rv_coming_soon);
+        progressBar3 = (ProgressBar) rootView.findViewById(R.id.progress_bar_3);
+        RecyclerView.LayoutManager layoutManager3 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvComingSoon.setLayoutManager(layoutManager3);
-        comingAdapter   = new ComingAdapter(getActivity(), comingList);
+        comingAdapter = new ComingAdapter(getActivity(), comingList);
         rvComingSoon.setAdapter(comingAdapter);
+        rvComingSoon.setNestedScrollingEnabled(false);
 
         new FetchGenreData().execute();
         new FetchComingSoon().execute();
